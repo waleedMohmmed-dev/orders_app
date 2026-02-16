@@ -20,9 +20,9 @@ import 'package:practical_google_maps_example/core/styling/app_assets.dart';
 import 'package:practical_google_maps_example/core/styling/app_colors.dart';
 import 'package:practical_google_maps_example/core/utils/animated_snack_dialog.dart';
 import 'package:practical_google_maps_example/core/utils/location_services.dart';
-import 'package:practical_google_maps_example/features/add_order_screen/cubit/orders_cubit.dart';
+import 'package:practical_google_maps_example/business_logic/cubit/orders_cubit.dart';
 
-import '../add_order_screen/model/order_model.dart';
+import '../../data/model/order_model.dart';
 
 class UserTrackOrderMapScreen extends StatefulWidget {
   final OrderModel order;
@@ -30,16 +30,13 @@ class UserTrackOrderMapScreen extends StatefulWidget {
   const UserTrackOrderMapScreen({super.key, required this.order});
 
   @override
-  State<UserTrackOrderMapScreen> createState() =>
-      _UserTrackOrderMapScreenState();
+  State<UserTrackOrderMapScreen> createState() => _UserTrackOrderMapScreenState();
 }
 
 class _UserTrackOrderMapScreenState extends State<UserTrackOrderMapScreen> {
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
 
-  CustomInfoWindowController customInfoWindowController =
-      CustomInfoWindowController();
+  CustomInfoWindowController customInfoWindowController = CustomInfoWindowController();
 
   Set<Marker> markers = {};
 
@@ -51,16 +48,14 @@ class _UserTrackOrderMapScreenState extends State<UserTrackOrderMapScreen> {
   String googleAPiKey = "Api_Key";
 
   loadOrderLocationAndUserMarker(OrderModel orderModel) async {
-    final Uint8List markerIcon =
-        await LocationServices.getBytesFromAsset(AppAssets.order, 50);
+    final Uint8List markerIcon = await LocationServices.getBytesFromAsset(AppAssets.order, 50);
     final Uint8List userMarkerIcon =
         await LocationServices.getBytesFromAsset(AppAssets.truck, 50);
 
     final Marker marker = Marker(
       icon: BitmapDescriptor.bytes(markerIcon),
       markerId: MarkerId(orderModel.orderId.toString()),
-      position: LatLng(orderModel.orderLat ?? 30.0596113,
-          orderModel.orderLong ?? 31.1760626),
+      position: LatLng(orderModel.orderLat ?? 30.0596113, orderModel.orderLong ?? 31.1760626),
       onTap: () {
         customInfoWindowController.addInfoWindow!(
           Padding(
@@ -104,8 +99,7 @@ class _UserTrackOrderMapScreenState extends State<UserTrackOrderMapScreen> {
               ),
             )),
           ),
-          LatLng(orderModel.orderLat ?? 30.0596113,
-              orderModel.orderLong ?? 31.1760626),
+          LatLng(orderModel.orderLat ?? 30.0596113, orderModel.orderLong ?? 31.1760626),
         );
       },
     );
@@ -170,10 +164,10 @@ class _UserTrackOrderMapScreenState extends State<UserTrackOrderMapScreen> {
 
   getCurrentPositionAndAnimateToIT() async {
     try {
-      currentUserLocation = LatLng(widget.order.userLat ?? 30.0596113,
-          widget.order.userLong ?? 31.1760626);
-      _animateToPosition(LatLng(
-          currentUserLocation!.latitude, currentUserLocation!.longitude));
+      currentUserLocation =
+          LatLng(widget.order.userLat ?? 30.0596113, widget.order.userLong ?? 31.1760626);
+      _animateToPosition(
+          LatLng(currentUserLocation!.latitude, currentUserLocation!.longitude));
     } catch (e) {
       log(e.toString());
     }
@@ -181,8 +175,8 @@ class _UserTrackOrderMapScreenState extends State<UserTrackOrderMapScreen> {
 
   Future<void> _animateToPosition(LatLng position) async {
     final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: position, zoom: 16)));
+    await controller.animateCamera(
+        CameraUpdate.newCameraPosition(CameraPosition(target: position, zoom: 16)));
   }
 
   _getPolyline() async {
@@ -191,10 +185,8 @@ class _UserTrackOrderMapScreenState extends State<UserTrackOrderMapScreen> {
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       googleApiKey: googleAPiKey,
       request: PolylineRequest(
-        origin: PointLatLng(
-            currentUserLocation!.latitude, currentUserLocation!.longitude),
-        destination:
-            PointLatLng(widget.order.orderLat!, widget.order.orderLong!),
+        origin: PointLatLng(currentUserLocation!.latitude, currentUserLocation!.longitude),
+        destination: PointLatLng(widget.order.orderLat!, widget.order.orderLong!),
         mode: TravelMode.driving,
       ),
     );
@@ -208,10 +200,8 @@ class _UserTrackOrderMapScreenState extends State<UserTrackOrderMapScreen> {
 
   _addPolyLine() {
     PolylineId id = PolylineId("poly");
-    Polyline polyline = Polyline(
-        polylineId: id,
-        color: AppColors.primaryColor,
-        points: polylineCoordinates);
+    Polyline polyline =
+        Polyline(polylineId: id, color: AppColors.primaryColor, points: polylineCoordinates);
     polylines[id] = polyline;
     setState(() {});
   }
@@ -235,8 +225,7 @@ class _UserTrackOrderMapScreenState extends State<UserTrackOrderMapScreen> {
 
         OrderModel updateOrder = OrderModel.fromJson(data);
         setState(() {
-          currentUserLocation =
-              LatLng(updateOrder.userLat!, updateOrder.userLong!);
+          currentUserLocation = LatLng(updateOrder.userLat!, updateOrder.userLong!);
           updateTruckMarker();
           _getPolyline();
         });
@@ -330,8 +319,7 @@ class _UserTrackOrderMapScreenState extends State<UserTrackOrderMapScreen> {
             GoogleMap(
               mapType: MapType.terrain,
               initialCameraPosition: CameraPosition(
-                target: LatLng(widget.order.orderLat ?? 0.0,
-                    widget.order.orderLong ?? 0.0),
+                target: LatLng(widget.order.orderLat ?? 0.0, widget.order.orderLong ?? 0.0),
                 zoom: 16,
               ),
               onMapCreated: (GoogleMapController controller) {

@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:practical_google_maps_example/core/routing/app_routes.dart';
 import 'package:practical_google_maps_example/core/widgets/primay_button_widget.dart';
-import 'package:practical_google_maps_example/features/add_order_screen/cubit/orders_cubit.dart';
-import 'package:practical_google_maps_example/features/add_order_screen/model/order_model.dart';
+import 'package:practical_google_maps_example/business_logic/cubit/orders_cubit.dart';
+import 'package:practical_google_maps_example/data/model/order_model.dart';
 
 import '../../core/styling/app_colors.dart';
 
@@ -92,8 +92,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                               PrimayButtonWidget(
                                   buttonText: "Track Order",
                                   onPress: () {
-                                    context.pushNamed(
-                                        AppRoutes.orderTrackMapScreen,
+                                    context.pushNamed(AppRoutes.orderTrackMapScreen,
                                         extra: orderModel);
                                   })
                             ],

@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:practical_google_maps_example/core/routing/app_routes.dart';
 import 'package:practical_google_maps_example/features/add_order_screen/screens/add_order_screen.dart';
-import 'package:practical_google_maps_example/features/add_order_screen/cubit/orders_cubit.dart';
+import 'package:practical_google_maps_example/business_logic/cubit/orders_cubit.dart';
 import 'package:practical_google_maps_example/features/add_order_screen/screens/place_picker_screen.dart';
 import 'package:practical_google_maps_example/features/auth/screns/login_screen.dart';
 import 'package:practical_google_maps_example/features/auth/screns/register_screen.dart';
@@ -14,13 +14,12 @@ import 'package:practical_google_maps_example/features/search_myOrder_screen/sea
 import 'package:practical_google_maps_example/features/splash_screen/splash_screen.dart';
 import 'package:practical_google_maps_example/features/user_track_order_map_screen/user_track_order_map_screen.dart';
 
-import '../../features/add_order_screen/model/order_model.dart';
-import '../../features/auth/cubit/auth_cubit.dart';
+import '../../data/model/order_model.dart';
+import '../../business_logic/cubit/auth_cubit.dart';
 import '../di/dependancy_injection.dart';
 
 class RouterGenerationConfig {
-  static GoRouter goRouter =
-      GoRouter(initialLocation: AppRoutes.splashScreen, routes: [
+  static GoRouter goRouter = GoRouter(initialLocation: AppRoutes.splashScreen, routes: [
     GoRoute(
       name: AppRoutes.splashScreen,
       path: AppRoutes.splashScreen,

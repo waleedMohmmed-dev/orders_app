@@ -2,14 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../core/constants/user_data.dart';
+import '../../core/constants/user_data.dart';
 import '../model/order_model.dart';
 
 class OrdersRepo {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<Either<String, String>> createOrder(
-      {required OrderModel orderModel}) async {
+  Future<Either<String, String>> createOrder({required OrderModel orderModel}) async {
     try {
       await firestore.collection("orders").doc().set({
         "orderDate": orderModel.orderDate,
@@ -49,9 +48,7 @@ class OrdersRepo {
   }
 
   Future<Either<String, String>> editUserLocation(
-      {required double userLat,
-      required double userLong,
-      required String orderId}) async {
+      {required double userLat, required double userLong, required String orderId}) async {
     try {
       await firestore
           .collection("orders")
@@ -72,8 +69,7 @@ class OrdersRepo {
     }
   }
 
-  Future<Either<String, String>> makeStatusDeliverd(
-      {required String orderId}) async {
+  Future<Either<String, String>> makeStatusDeliverd({required String orderId}) async {
     try {
       await firestore
           .collection("orders")
@@ -92,8 +88,7 @@ class OrdersRepo {
     }
   }
 
-  Future<Either<String, OrderModel>> getOrderById(
-      {required String orderId}) async {
+  Future<Either<String, OrderModel>> getOrderById({required String orderId}) async {
     try {
       DocumentSnapshot<Map<String, dynamic>> querySnapshot = await firestore
           .collection("orders")

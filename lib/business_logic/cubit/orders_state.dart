@@ -45,5 +45,3 @@ final class GettingOneOrdersError extends OrdersState {
   final String message;
   GettingOneOrdersError(this.message);
 }
-
-

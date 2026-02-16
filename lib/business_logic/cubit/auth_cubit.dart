@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../../core/constants/user_data.dart';
-import '../repo/auth_repo.dart';
+import '../../core/constants/user_data.dart';
+import '../../data/repo/auth_repo.dart';
 
 part 'auth_state.dart';
 
@@ -10,12 +10,10 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this._authRepo) : super(AuthInitial());
   final AuthRepo _authRepo;
   void registerUser(
-      {required String email,
-      required String userName,
-      required String password}) async {
+      {required String email, required String userName, required String password}) async {
     emit(AuthLoading());
-    final result = await _authRepo.registerUser(
-        email: email, userName: userName, password: password);
+    final result =
+        await _authRepo.registerUser(email: email, userName: userName, password: password);
     return result.fold(
       (l) {
         emit(AuthError(l));

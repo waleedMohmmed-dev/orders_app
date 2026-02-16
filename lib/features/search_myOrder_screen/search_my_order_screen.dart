@@ -12,8 +12,8 @@ import 'package:practical_google_maps_example/core/utils/animated_snack_dialog.d
 import 'package:practical_google_maps_example/core/widgets/custom_text_field.dart';
 import 'package:practical_google_maps_example/core/widgets/primay_button_widget.dart';
 import 'package:practical_google_maps_example/core/widgets/spacing_widgets.dart';
-import 'package:practical_google_maps_example/features/add_order_screen/cubit/orders_cubit.dart';
-import 'package:practical_google_maps_example/features/auth/cubit/auth_cubit.dart';
+import 'package:practical_google_maps_example/business_logic/cubit/orders_cubit.dart';
+import 'package:practical_google_maps_example/business_logic/cubit/auth_cubit.dart';
 
 class SearchMyOrder extends StatefulWidget {
   const SearchMyOrder({super.key});
@@ -110,9 +110,7 @@ class _SearchMyOrderState extends State<SearchMyOrder> {
                       buttonText: "Search",
                       onPress: () {
                         if (formKey.currentState!.validate()) {
-                          context
-                              .read<OrdersCubit>()
-                              .getOrderById(orderId: orderID.text);
+                          context.read<OrdersCubit>().getOrderById(orderId: orderID.text);
                         }
                       },
                     ),

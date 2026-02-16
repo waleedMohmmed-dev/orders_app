@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:practical_google_maps_example/features/add_order_screen/repo/orders_repo.dart';
+import 'package:practical_google_maps_example/data/repo/orders_repo.dart';
 
-import '../model/order_model.dart';
+import '../../data/model/order_model.dart';
 
 part 'orders_state.dart';
 
@@ -29,19 +29,15 @@ class OrdersCubit extends Cubit<OrdersState> {
   }
 
   void sendUserNewLocation(
-      {required double userLat,
-      required double userLong,
-      required String orderId}) async {
+      {required double userLat, required double userLong, required String orderId}) async {
     emit(GettingOrdersStatus());
-    await _ordersRepo.editUserLocation(
-        userLat: userLat, userLong: userLong, orderId: orderId);
+    await _ordersRepo.editUserLocation(userLat: userLat, userLong: userLong, orderId: orderId);
   }
 
   void makeOrderDeliverdStatus({required String orderId}) async {
     emit(GettingOrdersStatus());
     final result = await _ordersRepo.makeStatusDeliverd(orderId: orderId);
-    result.fold((l) => emit(GettingOrdersError(l)),
-        (r) => emit(orderDeliveredStatus(r)));
+    result.fold((l) => emit(GettingOrdersError(l)), (r) => emit(orderDeliveredStatus(r)));
   }
 
   void getOrderById({required String orderId}) async {

@@ -11,8 +11,8 @@ import 'package:practical_google_maps_example/core/widgets/spacing_widgets.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:practical_google_maps_example/features/auth/cubit/auth_cubit.dart';
-import 'package:practical_google_maps_example/features/auth/repo/auth_repo.dart';
+import 'package:practical_google_maps_example/business_logic/cubit/auth_cubit.dart';
+import 'package:practical_google_maps_example/data/repo/auth_repo.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -151,8 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                       ),
                       const HeightSpace(16),
-                      Text("Confirm Password",
-                          style: AppStyles.black16w500Style),
+                      Text("Confirm Password", style: AppStyles.black16w500Style),
                       const HeightSpace(8),
                       CustomTextField(
                         hintText: "Enter Your Password",
@@ -200,9 +199,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               style: AppStyles.black16w500Style
                                   .copyWith(color: AppColors.secondaryColor),
                               children: [
-                                TextSpan(
-                                    text: "Login",
-                                    style: AppStyles.black15BoldStyle)
+                                TextSpan(text: "Login", style: AppStyles.black15BoldStyle)
                               ],
                             ),
                           ),

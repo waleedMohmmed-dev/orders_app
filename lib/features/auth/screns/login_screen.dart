@@ -12,7 +12,7 @@ import 'package:practical_google_maps_example/core/utils/animated_snack_dialog.d
 import 'package:practical_google_maps_example/core/widgets/custom_text_field.dart';
 import 'package:practical_google_maps_example/core/widgets/primay_button_widget.dart';
 import 'package:practical_google_maps_example/core/widgets/spacing_widgets.dart';
-import 'package:practical_google_maps_example/features/auth/cubit/auth_cubit.dart';
+import 'package:practical_google_maps_example/business_logic/cubit/auth_cubit.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -128,8 +128,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       buttonText: "Sign in",
                       onPress: () {
                         if (formKey.currentState!.validate()) {
-                          context.read<AuthCubit>().loginUser(
-                              email: email.text, password: password.text);
+                          context
+                              .read<AuthCubit>()
+                              .loginUser(email: email.text, password: password.text);
                         }
                       },
                     ),
@@ -145,9 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: AppStyles.black16w500Style
                                 .copyWith(color: AppColors.secondaryColor),
                             children: [
-                              TextSpan(
-                                  text: "Join",
-                                  style: AppStyles.black15BoldStyle)
+                              TextSpan(text: "Join", style: AppStyles.black15BoldStyle)
                             ],
                           ),
                         ),

@@ -11,8 +11,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:practical_google_maps_example/core/routing/app_routes.dart';
 import 'package:practical_google_maps_example/core/routing/router_generation_config.dart';
-import 'package:practical_google_maps_example/features/add_order_screen/cubit/orders_cubit.dart';
-import 'package:practical_google_maps_example/features/add_order_screen/model/order_model.dart';
+import 'package:practical_google_maps_example/business_logic/cubit/orders_cubit.dart';
+import 'package:practical_google_maps_example/data/model/order_model.dart';
 
 import '../../../core/styling/app_assets.dart';
 import '../../../core/styling/app_colors.dart';
@@ -33,8 +33,7 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController orderIdController = TextEditingController();
   final TextEditingController orderNameController = TextEditingController();
-  final TextEditingController orderArrivalDateController =
-      TextEditingController();
+  final TextEditingController orderArrivalDateController = TextEditingController();
 
   LatLng? orderLocation;
   LatLng? userLocation;
@@ -141,20 +140,17 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
                           initialDate: DateTime.now(),
                         ).then((value) {
                           orderArrivalDate = value;
-                          orderArrivalDateController.text =
-                              value.toString().split(" ").first;
+                          orderArrivalDateController.text = value.toString().split(" ").first;
                         });
                       },
                     ),
                     const HeightSpace(15),
                     PrimayButtonWidget(
                       buttonText: "Select Order Location",
-                      icon: Icon(Icons.map_outlined,
-                          color: AppColors.whiteColor, size: 24.sp),
+                      icon: Icon(Icons.map_outlined, color: AppColors.whiteColor, size: 24.sp),
                       onPress: () async {
-                        final result =
-                            await context.push<Map<String, dynamic>?>(
-                                AppRoutes.placePickerScreen);
+                        final result = await context
+                            .push<Map<String, dynamic>?>(AppRoutes.placePickerScreen);
 
                         if (result != null) {
                           orderLocation = result['latLng'] as LatLng;
